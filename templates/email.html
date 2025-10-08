@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📬 Gmail Inbox Viewer</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 30px;
+      line-height: 1.5;
+    }
+    h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .email {
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 10px;
+      margin: 15px auto;
+      padding: 20px;
+      width: 80%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
+    .email:hover {
+      transform: scale(1.01);
+    }
+    .subject {
+      font-size: 18px;
+      color: #ffeb3b;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .from {
+      color: #03a9f4;
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+    .snippet {
+      color: #ccc;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .info-box {
+      margin-top: 15px;
+      background: #2a2a2a;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .info-box span {
+      color: #00e676;
+      font-weight: bold;
+    }
+    .refresh-btn {
+      display: block;
+      background: #00bcd4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      margin: 20px auto;
+      cursor: pointer;
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+    .refresh-btn:hover {
+      background: #0097a7;
+    }
+  </style>
+</head>
+<body>
+  <h1>📨 Gmail Inbox – Extracted Business Info</h1>
+  <button class="refresh-btn" onclick="refreshEmails()">🔁 Refresh Emails</button>
+
+  {% if emails %}
+    {% for email in emails %}
+      <div class="email">
+        <div class="subject">{{ email.subject or "No Subject" }}</div>
+        <div class="from">From: {{ email.from }}</div>
+        <div class="snippet">{{ email.snippet }}</div>
+
+        <div class="info-box">
+          <p><span>Name:</span> {{ email.info.name }}</p>
+          <p><span>Title:</span> {{ email.info.title }}</p>
+          <p><span>Company:</span> {{ email.info.company }}</p>
+          <p><span>Email:</span> {{ email.info.email }}</p>
+          <p><span>Phone:</span> {{ email.info.phone }}</p>
+          <p><span>Address:</span> {{ email.info.address }}</p>
+          <p><span>Website:</span> {{ email.info.website }}</p>
+          <p><span>Other Info:</span> {{ email.info.other_info }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p style="text-align:center;">No emails found yet. Click the Refresh button above ⬆️</p>
+  {% endif %}
+
+  <script>
+    function refreshEmails() {
+      window.location.href = "/emails";
+    }
+  </script>
+</body>
+</html>
