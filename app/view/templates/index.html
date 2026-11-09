@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Business Info Extractor</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Email Business Info Extractor</h1>
+      <p>Extract business information from emails using AI</p>
+    </div>
+
+    <div class="content">
+      <form method="POST" action="/extract">
+        <div class="form-group">
+          <label for="email_content">Paste your email content:</label>
+          <textarea
+            name="email_content"
+            id="email_content"
+            required
+            placeholder="Paste your email here..."></textarea>
+        </div>
+
+        <div class="btn-container">
+          <button type="submit" class="btn-primary">Extract information</button>
+          <button type="button" class="btn-secondary" onclick="loadExample()">Load example</button>
+        </div>
+      </form>
+
+      <a href="/admin" class="nav-link">View admin panel &rarr;</a>
+
+      <div class="example">
+        <h3>Example email format:</h3>
+        <pre id="exampleText">Hi there,
+
+My name is Sarah Johnson and I'm the Marketing Director at GlobalTech Solutions.
+
+You can reach me at:
+Email: sarah.johnson@globaltech.com
+Phone: +1 (555) 987-6543
+Mobile: +1 (555) 123-9999
+
+Our office is located at:
+123 Business Park Drive, Suite 400
+San Francisco, CA 94107
+
+Check out our website: www.globaltech.com
+
+Best regards,
+Sarah</pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function loadExample() {
+      const example = document.getElementById("exampleText").textContent;
+      document.getElementById("email_content").value = example;
+    }
+  </script>
+</body>
+</html>

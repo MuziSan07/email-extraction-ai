@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extraction Result</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Extraction Complete</h1>
+    </div>
+
+    <div class="content">
+      {% if success %}
+        <div class="success-message">
+          Business information extracted and saved to the database.
+          <br />Contact ID: #{{ contact_id }}
+        </div>
+
+        <div class="info-card">
+          {% set fields = [
+            ("Name / Username", info.name),
+            ("Title / Designation", info.title),
+            ("Company", info.company),
+            ("Email", info.email),
+            ("Phone number", info.phone),
+            ("Address", info.address),
+            ("Website", info.website),
+            ("Other information", info.other_info)
+          ] %}
+          {% for label, value in fields %}
+          <div class="info-row">
+            <div class="info-label">{{ label }}:</div>
+            <div class="info-value {% if not value %}empty{% endif %} {% if label == 'Other information' %}other-info{% endif %}">
+              {{ value if value else "Not found" }}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="error-message">
+          Error extracting information: {{ error }}
+        </div>
+      {% endif %}
+
+      <div class="btn-container">
+        <a href="/" class="btn btn-primary">Extract another email</a>
+        <a href="/admin" class="btn btn-secondary">View admin panel</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
